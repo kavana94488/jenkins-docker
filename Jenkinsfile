@@ -4,7 +4,7 @@ pipeline{
 
   environment{
     imageName='kavana97/jenkins-docker'
-    registryCredential='kavana@97'
+    registryCredential='docker'
     dockerImage=''
   }
 
