@@ -16,13 +16,16 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
+                    echo "Building Docker image ${imageName}"
                     dockerImage = docker.build(imageName)
+                    echo "Docker image built: ${dockerImage}"
                 }
             }
         }
         stage('Run Image') {
             steps {
                 script {
+                    echo "Running Docker image ${imageName}:latest"
                     sh "docker run ${imageName}:latest"
                 }
             }
@@ -30,6 +33,7 @@ pipeline {
         stage('Deploy Image') {
             steps {
                 script {
+                    echo "Pushing Docker image to registry"
                     docker.withRegistry('', registryCredential) {
                         dockerImage.push("${env.BUILD_NUMBER}")
                         dockerImage.push('latest')
